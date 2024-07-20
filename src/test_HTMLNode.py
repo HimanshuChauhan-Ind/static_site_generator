@@ -1,12 +1,8 @@
 import unittest
 
-from htmlnode import HTMLNode
+from htmlnode import HTMLNode, LeafNode
 
 class TestHTMLNode(unittest.TestCase):
-    def test_print(self):
-        node1 = HTMLNode('p', 'Just a test para')
-        node2 = HTMLNode('p', 'Just a test para')
-        self.assertEqual(print(node1), print(node2))
     
     def test_eq(self):
         node1 = HTMLNode('b','This is bold text')
@@ -63,6 +59,19 @@ class TestHTMLNode(unittest.TestCase):
             node.__repr__(),
             "HTMLNode(p, What a strange world, None, {'class': 'primary'})",
         )
+
+class TestLeafNode(unittest.TestCase):
+    def test_repr(self):
+        node = LeafNode(
+             "p",
+            "What a strange world",
+        )
+        self.assertEqual(node.to_html(), "<p>What a strange world</p>")
+
+    def test_value_error(self):
+        with self.assertRaises(ValueError) as context:
+            LeafNode(None, None)
+        self.assertEqual(str(context.exception), "LeafNode: requires a value")
 
 if __name__ == '__main__':
     unittest.main()
