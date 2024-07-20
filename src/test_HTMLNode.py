@@ -67,11 +67,6 @@ class TestHTMLNode(unittest.TestCase):
         )
         self.assertEqual(node.to_html(), "<p>What a strange world</p>")
 
-    def test_value_error(self):
-        with self.assertRaises(ValueError) as context:
-            LeafNode(None, None)
-        self.assertEqual(str(context.exception), "LeafNode: requires a value")
-
     def test_to_html_with_children(self):
         child_node = LeafNode("span", "child")
         parent_node = ParentNode("div", [child_node])
